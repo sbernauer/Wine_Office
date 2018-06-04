@@ -1,0 +1,23 @@
+Start container with:
+docker run -it --rm -e DISPLAY \
+--entrypoint bash \
+--volume $HOME/.Xauthority:/home/office/.Xauthority \
+--volume /tmp/.X11-unix:/tmp/.X11-unix \
+--volume /home/sbernauer/Desktop/Microsoft\ Office\ 2010/:/office \
+image:tag
+====
+
+/winetricks dotnet20 msxml6 corefonts    #> Alle beiden Nachfragen installieren
+/winetricks dotnet20 msxml6 corefonts    #> Gleichen Befehl nochmal auführen und .NET Framework 2.0 und MSXML 6.0 installieren
+
+# Internet disconnecten
+
+wine /office/Microsoft\ Office\ Enterprise\ 2010\ Corporate\ Final\ \(full\ activated\)/setup.exe
+
+run "winecfg" >>>
+Select the "Libraries" tab.
+You should see msxml6 (native, built-in) in the Existing overrides section. Highlight it and click Edit and select Native (Windows) and click OK. Now, it should show up as *msxml6 (native).
+Then add the riched20 and gdiplus libraries from the New override for library section and make sure these are also set as "Native"
+
+
+wine /office/X16-37709.exe
